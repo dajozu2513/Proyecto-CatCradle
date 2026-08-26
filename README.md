@@ -1,58 +1,58 @@
 # CatCradle
 
-Aplicación web de arte generativo en tiempo real mediante rastreo de manos. Usa Google MediaPipe para detección de landmarks y p5.js para renderizado en canvas. Sin build step — abre `index.html` directamente en el browser.
+Real-time generative art web application using hand tracking. Uses Google MediaPipe for landmark detection and p5.js for canvas rendering. No build step required — just open `index.html` directly in the browser.
 
 ---
 
-## Tecnologías
+## Technologies
 
-| Librería | Versión | Uso |
+| Library | Version | Purpose |
 |---|---|---|
-| MediaPipe Hands | 0.4.1646424915 | Detección de 21 landmarks por mano |
-| MediaPipe Camera Utils | 0.3.1640029074 | Integración con webcam |
-| p5.js | 1.9.4 | Renderizado canvas a 60 fps |
+| MediaPipe Hands | 0.4.1646424915 | Detects 21 landmarks per hand |
+| MediaPipe Camera Utils | 0.3.1640029074 | Webcam integration |
+| p5.js | 1.9.4 | Canvas rendering at 60 fps |
 
-Todas las dependencias cargan desde CDN — no requiere `npm install`.
+All dependencies load from a CDN — no `npm install` required.
 
-## Requisitos
+## Requirements
 
-- Browser moderno con soporte WebRTC (Chrome, Edge, Firefox, Safari 14+)
-- Cámara web
-- Ningún servidor backend
+- Modern browser with WebRTC support (Chrome, Edge, Firefox, Safari 14+)
+- Webcam
+- No backend server needed
 
-## Cómo usar
+## How to Use
 
-1. Abre `index.html` en el browser
-2. Concede permiso de cámara cuando el browser lo solicite
-3. Coloca una o dos manos frente a la cámara
-4. Cambia de modo con los botones del panel lateral
-5. Ajusta parámetros con los sliders
+1. Open `index.html` in the browser
+2. Grant camera permission when prompted by the browser
+3. Place one or two hands in front of the camera
+4. Switch modes using the buttons in the side panel
+5. Adjust parameters with the sliders
 
-## Modos de visualización
+## Visualization Modes
 
-| Modo | Descripción |
+| Mode | Description |
 |---|---|
-| **Neural Web** | Grafo bipartito K₅,₅ entre yemas con curvas bézier elásticas |
-| **Helix** | Espirales gemelas entre centros de las manos |
-| **Sigil Gate** | Polígonos concéntricos rotantes formando mandala |
-| **Circuit** | Caminos ortogonales con trazas de partículas animadas |
-| **Vortex** | Elipses concéntricas girando en espiral |
-| **Constellation** | Grafo de proximidad conectando yemas cercanas |
+| **Neural Web** | Bipartite K₅,₅ graph between fingertips with elastic bézier curves |
+| **Helix** | Twin spirals between the centers of both hands |
+| **Sigil Gate** | Rotating concentric polygons forming a mandala |
+| **Circuit** | Orthogonal paths with animated particle traces |
+| **Vortex** | Concentric ellipses spiraling in rotation |
+| **Constellation** | Proximity graph connecting nearby fingertips |
 
-## Parámetros ajustables (panel lateral)
+## Adjustable Parameters (side panel)
 
 `glow` · `trail opacity` · `video mix` · `line weight` · `sag/wobble` · `dot size` · `anim speed`
 
-## Arquitectura
+## Architecture
 
-Todo el código vive en `index.html` organizado en tres bloques:
+All the code lives in `index.html`, organized into three blocks:
 
-- **CSS** — design tokens, layout del HUD, panel de controles
-- **HTML** — elemento `<video>` de webcam, HUD, panel de botones y sliders
-- **JavaScript** — `initMP()` inicializa MediaPipe; `setup()`/`draw()` es el ciclo p5.js; `lx()`/`ly()` transforman coordenadas; seis funciones de modo independientes
+- **CSS** — design tokens, HUD layout, controls panel
+- **HTML** — webcam `<video>` element, HUD, buttons and sliders panel
+- **JavaScript** — `initMP()` initializes MediaPipe; `setup()`/`draw()` form the p5.js cycle; `lx()`/`ly()` transform coordinates; six independent mode functions
 
-El objeto global `P` contiene todos los parámetros vivos. Los sliders escriben directo en `P`; los modos leen de `P` cada frame.
+The global `P` object holds all live parameters. Sliders write directly to `P`; modes read from `P` every frame.
 
 ---
 
-Filosofía de diseño: `philosophy.md`
+Design philosophy: `philosophy.md`
